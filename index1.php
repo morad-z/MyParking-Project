@@ -41,6 +41,8 @@ if (isset($_POST['signout'])) {
     <title>Home Page</title>
   </head>
   <body>
+                <h1>AMIN amin AMIN</h1>
+
     <header class="header_index">
       <a id="logo" href="index.php"></a>
     <div class="form-check form-switch">
@@ -67,7 +69,6 @@ if (isset($_POST['signout'])) {
                 <span class="line line2"></span>
                 <span class="line line3"></span>
               </div>  
-            
             <div class="menu-items">
               <li><a href="index.php">Home</a></li>
               <li><a href="upload_aps.php">upload Parking Spot</a></li>
