@@ -40,7 +40,6 @@ if (isset($_POST['signout'])) {
 </head>
 
 <body>
-<h1 >amin MORAD amin </h1>
 
   <header class="header_index">
     <a id="logo" href="index.php"></a>
