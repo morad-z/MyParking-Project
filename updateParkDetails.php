@@ -75,7 +75,6 @@ if (isset($_GET['id'])) {
     <title>MainObject</title>
   </head>
   <body>
-  <h2>here is h2 </h2>
 
     <header class="headerclass">
       <a id="logo" href="index.php"></a>
