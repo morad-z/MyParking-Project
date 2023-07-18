@@ -40,6 +40,7 @@ if (isset($_POST['signout'])) {
 </head>
 
 <body>
+
   <header class="header_index">
     <a id="logo" href="index.php"></a>
     <div class="form-check form-switch">

@@ -91,6 +91,7 @@ if (isset($_POST['delete'])) {
     <title>MainObject</title>
   </head>
   <body>
+
     <header class="headerclass">
       <a id="logo" href="index.php"></a>
       <div class="form-check form-switch">
