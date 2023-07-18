@@ -36,21 +36,23 @@
     
     <?php
 include('../config.php');
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
 
 // Retrieve form data
-$country = $_POST['country'];
-$city = $_POST['city'];
-$streetNumber = $_POST['streetNumber'];
-$size = $_POST['size'];
-$howToGetIn = $_POST['howToGetIn'];
-$date = $_POST['date'];
-$startHour = $_POST['startHour'];
-$endHour = $_POST['endHour'];
-
+$country = mysqli_real_escape_string($conn, $_POST['country']);
+$city = mysqli_real_escape_string($conn, $_POST['city']);
+$streetNumber = mysqli_real_escape_string($conn, $_POST['streetNumber']);
+$size = mysqli_real_escape_string($conn, $_POST['size']);
+$howToGetIn = mysqli_real_escape_string($conn, $_POST['howToGetIn']);
+$reservationDate = mysqli_real_escape_string($conn, $_POST['reservationDate']);
+$startHour = mysqli_real_escape_string($conn, $_POST['startHour']);
+$endHour = mysqli_real_escape_string($conn, $_POST['endHour']);
 
 // Insert form data into the database
-$sql = "INSERT INTO tbl_216_aps (country, city, streetNumber, size, howToGetIn, date, startHour, endHour)
-        VALUES ('$country', '$city', '$streetNumber', '$size', '$howToGetIn', '$date', '$startHour', '$endHour')";
+$sql = "INSERT INTO tbl_216_aps (country, city, streetNumber, size, howToGetIn, reservationDate, startHour, endHour)
+        VALUES ('$country', '$city', '$streetNumber', '$size', '$howToGetIn', '$reservationDate', '$startHour', '$endHour')";
 
 if (mysqli_query($conn, $sql)) {
     echo "Data inserted successfully.";
@@ -67,7 +69,7 @@ mysqli_close($conn);
   <p>Street Number: <?php echo $streetNumber; ?></p>
   <p>Size: <?php echo $size; ?></p>
   <p>How to Get In: <?php echo $howToGetIn; ?></p>
-  <p>Date: <?php echo $date; ?></p>
+  <p>Date: <?php echo $reservationDate; ?></p>
   <p>Start Hour: <?php echo $startHour; ?></p>
   <p>End Hour: <?php echo $endHour; ?></p>
   <a href="../index.php"> back to main page</a>

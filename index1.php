@@ -119,11 +119,6 @@ if (isset($_POST['signout'])) {
             
       <section class="parkingSection_mobile" id="mobile_list">
         <div class="list-group" id="list-tab1" role="tablist">
-          <!-- <a class="list-group-item list-group-item-action active" id="sectionA-list-park1-list" data-toggle="list" href="mainObject.php" role="tab">metola 11 , Rmat Gan <small> 11-sep-2022</small></a>
-          <a class="list-group-item list-group-item-action" id="sectionA-list-park2-list" data-toggle="list" href="mainObject.php" role="tab">yarkon 31 , Rmat Gan <small> 13-sep-2022</small></a>
-          <a class="list-group-item list-group-item-action" id="sectionA-list-park3-list" data-toggle="list" href="mainObject.php" role="tab">yarkon 31 , Rmat Gan <small> 13-sep-2022</small></a>
-          <a class="list-group-item list-group-item-action" id="sectionA-list-park4-list" data-toggle="list" href="mainObject.php" role="tab">ehad haam 9, Bat Yam <small> 13-sep-2022</small></a>
-          <a class="list-group-item list-group-item-action" id="sectionA-list-park5-list" data-toggle="list" href="mainObject.php" role="tab">jerusalim 45 , Holon <small> 13-sep-2022</small></a> -->
           <a class="list-group-item list-group-item-action" id="sectionA-add" data-toggle="list" href="mainObject.php" role="tab">Add park <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
               <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -179,14 +174,6 @@ if (isset($_POST['signout'])) {
                   echo '<a class="list-group-item list-group-item-action" id="sectionC-list-park2-list" data-toggle="list" href="mainObject.php?id='.$id.'" role="tab">park 2 </a>';
                 }
             ?> 
-          <!-- <a class="list-group-item list-group-item-action" id="sectionB-list-park1-list" data-toggle="list" href="mainObject.php" role="tab">park 1 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park2-list" data-toggle="list" href="mainObject.php" role="tab">park 2 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park3-list" data-toggle="list" href="mainObject.php" role="tab">park 3 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park4-list" data-toggle="list" href="mainObject.php" role="tab">park 4 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park5-list" data-toggle="list" href="mainObject.php" role="tab">park 5 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park6-list" data-toggle="list" href="mainObject.php" role="tab">park 6 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park7-list" data-toggle="list" href="mainObject.php" role="tab">park 7 </a>
-          <a class="list-group-item list-group-item-action" id="sectionB-list-park8-list" data-toggle="list" href="mainObject.php" role="tab">park 8 </a> -->
           <a class="list-groupitem list-group-item-action" id="sectionB-add" data-toggle="list" href="upload_aps.php" role="tab">Add park <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
               <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -206,15 +193,7 @@ if (isset($_POST['signout'])) {
                   echo '<a class="list-group-item list-group-item-action" id="sectionC-list-park2-list" data-toggle="list" href="mainObject.php?id='.$id.'" role="tab">park 2 </a>';
                 }
             ?> 
-          <!-- <a class="list-group-item list-group-item-action" id="sectionC-list-park1-list" data-toggle="list" href="mainObject.php" role="tab">park 1 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park2-list" data-toggle="list" href="mainObject.php" role="tab">park 2 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park3-list" data-toggle="list" href="mainObject.php" role="tab">park 3 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park4-list" data-toggle="list" href="mainObject.php" role="tab">park 4 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park5-list" data-toggle="list" href="mainObject.php" role="tab">park 5 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park6-list" data-toggle="list" href="mainObject.php" role="tab">park 6 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park7-list" data-toggle="list" href="mainObject.php" role="tab">park 7 </a>
-          <a class="list-group-item list-group-item-action" id="sectionC-list-park8-list" data-toggle="list" href="mainObject.php" role="tab">park 8 </a> -->
-          <a class="list-groupitem list-group-item-action" id="sectionC-add" data-toggle="list" href="upload_aps.php" role="tab">Add park <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <a class="list-groupitem list-group-item-action" id="sectionC-add" data-toggle="list" href="upload_aps.php" role="tab">Add park <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
               <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
             </svg>
