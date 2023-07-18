@@ -24,13 +24,14 @@ if (isset($_POST['signout'])) {
 $email = $_SESSION['email'];
 
 // Retrieve the user's name from tbl_216_users1
-$query = "SELECT name FROM tbl_216_users1 WHERE email = '$email'";
+$query = "SELECT name,role FROM tbl_216_users1 WHERE email = '$email'";
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful and a row was returned
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $userName = $row['name'];
+    $userRole = $row['role'];
 }
 
 if (isset($_GET['id'])) {
@@ -56,17 +57,42 @@ if (isset($_GET['id'])) {
 
 // Delete functionality
 if (isset($_POST['delete'])) {
-    // Delete the item from tbl_216_aps based on the ID
-    $query = "DELETE FROM tbl_216_aps WHERE id = $id";
-    $result = mysqli_query($conn, $query);
+  // Retrieve the user's ID from tbl_216_users1
+  $query = "SELECT id FROM tbl_216_users1 WHERE email = '$email'";
+  $result = mysqli_query($conn, $query);
 
-    if ($result) {
-        // Redirect to index1.php after successful deletion
-        header("Location: index1.php");
-        exit();
-    } else {
-        echo "Error deleting item: " . mysqli_error($conn);
-    }
+  // Check if the query was successful and a row was returned
+  if ($result && mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      $userId = $row['id'];
+
+      // Retrieve the item from tbl_216_aps based on the ID
+      $query = "SELECT * FROM tbl_216_aps WHERE id = $id";
+      $result = mysqli_query($conn, $query);
+
+      // Check if the query was successful and a row was returned
+      if ($result && mysqli_num_rows($result) > 0) {
+          $row = mysqli_fetch_assoc($result);
+          $ownerId = $row['user_id'];
+
+          // Check if the current user is the owner of the item
+          if ($userId == $ownerId || $userRole == 'Admin') {
+              // Delete the item from tbl_216_aps based on the ID
+              $query = "DELETE FROM tbl_216_aps WHERE id = $id";
+              $result = mysqli_query($conn, $query);
+
+              if ($result) {
+                  // Redirect to index1.php after successful deletion
+                  header("Location: index1.php");
+                  exit();
+              } else {
+                  echo "Error deleting item: " . mysqli_error($conn);
+              }
+          } else {
+              echo "You are not authorized to delete this item.";
+          }
+      }
+  }
 }
 
 // Handle the rating submission
@@ -223,14 +249,43 @@ if ($result && mysqli_num_rows($result) > 0) {
         <input type="radio" id="star1" name="rate" value="1" <?php if ($userRating == 1) echo 'checked'; ?> onclick="submitRating(this)">
         <label for="star1" title="text"></label>
     </div> 
-    <p>Average Rating: <?php echo $averageRating; ?>
-        </section>
+    <p>Average Rating: <?php echo $averageRating; ?> <a href="ratings.php?id=<?php echo $id; ?>">View All Ratings</a></p>        </section>
     </main>
 <section id="lowwerSection">
     <?php
-       echo '<a href="updateParkDetails.php?id='.$id.'"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi-bi-pencil-fill" viewBox="0 0 16 16">
+  // Retrieve the user's ID from tbl_216_users1
+  $query = "SELECT id,role FROM tbl_216_users1 WHERE email = '$email'";
+  $result = mysqli_query($conn, $query);
+
+  // Check if the query was successful and a row was returned
+  if ($result && mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      $userId = $row['id'];
+      $userRole = $row['role'];
+      
+
+      // Retrieve the item from tbl_216_aps based on the ID
+      $query = "SELECT * FROM tbl_216_aps WHERE id = $id";
+      $result = mysqli_query($conn, $query);
+
+      // Check if the query was successful and a row was returned
+      if ($result && mysqli_num_rows($result) > 0) {
+          $row = mysqli_fetch_assoc($result);
+          $ownerId = $row['user_id'];
+          
+
+          // Check if the current user is the owner of the item
+          if ($userId == $ownerId || $userRole == 'Admin') {
+        echo '<a href="updateParkDetails.php?id='.$id.'"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi-bi-pencil-fill" viewBox="0 0 16 16">
           <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
         </svg></a>';
+      }
+  }
+}
+    
+      //  echo '<a href="updateParkDetails.php?id='.$id.'"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi-bi-pencil-fill" viewBox="0 0 16 16">
+      //     <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+      //   </svg></a>';
     ?>
     <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
       <button type="submit" name="delete" style="background: none; border: none; padding: 0;">

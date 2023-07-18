@@ -35,9 +35,36 @@
     </header>
     
     <?php
-include('../config.php');
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    include('../config.php');
+
+session_start();
+
+// Check if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php"); // Redirect to the sign-in page
+    exit();
+}
+
+// Sign out functionality
+if (isset($_POST['signout'])) {
+    // Clear session data
+    session_unset();
+    session_destroy();
+
+    header("Location: index.php"); // Redirect to the sign-in page after signing out
+    exit();
+}
+
+$email = $_SESSION['email'];
+
+// Retrieve the user's name from tbl_216_users1
+$query = "SELECT name FROM tbl_216_users1 WHERE email = '$email'";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful and a row was returned
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $userName = $row['name'];
 }
 
 // Retrieve form data
@@ -50,14 +77,26 @@ $reservationDate = mysqli_real_escape_string($conn, $_POST['reservationDate']);
 $startHour = mysqli_real_escape_string($conn, $_POST['startHour']);
 $endHour = mysqli_real_escape_string($conn, $_POST['endHour']);
 
-// Insert form data into the database
-$sql = "INSERT INTO tbl_216_aps (country, city, streetNumber, size, howToGetIn, reservationDate, startHour, endHour)
-        VALUES ('$country', '$city', '$streetNumber', '$size', '$howToGetIn', '$reservationDate', '$startHour', '$endHour')";
+// Get the user's ID based on the email
+$email = $_SESSION['email'];
+$query = "SELECT id FROM tbl_216_users1 WHERE email = '$email'";
+$result = mysqli_query($conn, $query);
 
-if (mysqli_query($conn, $sql)) {
-    echo "Data inserted successfully.";
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $userId = $row['id'];
+
+    // Insert form data into the database with the user's ID
+    $sql = "INSERT INTO tbl_216_aps (country, city, streetNumber, size, howToGetIn, reservationDate, startHour, endHour, user_id)
+            VALUES ('$country', '$city', '$streetNumber', '$size', '$howToGetIn', '$reservationDate', '$startHour', '$endHour', '$userId')";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "Data inserted successfully.";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error: User not found.";
 }
 
 // Close the database connection
