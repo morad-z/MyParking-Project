@@ -38,8 +38,10 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Retrieve the data from tbl_216_aps for the specific ID
+    
     $query = "SELECT * FROM tbl_216_aps WHERE id = $id";
     $result = mysqli_query($conn, $query);
+
 
     // Check if the query was successful and a row was returned
     if ($result && mysqli_num_rows($result) > 0) {
@@ -52,6 +54,19 @@ if (isset($_GET['id'])) {
         $reservationDate = $row['reservationDate'];
         $startHour = $row['startHour'];
         $endHour = $row['endHour'];
+        $ownerId = $row['user_id'];
+        $ownerId = $row['user_id'];
+
+// Retrieve the owner's name from tbl_216_users1
+$query = "SELECT name FROM tbl_216_users1 WHERE id = $ownerId";
+$result = mysqli_query($conn, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $ownerRow = mysqli_fetch_assoc($result);
+    $ownerName = $ownerRow['name'];
+} else {
+    $ownerName = "Unknown";
+}
     }
 }
 
@@ -218,7 +233,7 @@ if ($result && mysqli_num_rows($result) > 0) {
       <section id="wrapper">
         <section id="imageSection"></section>
         <section id="textSection">
-          <span>Owner :</span> <small><?php echo $userName ?> &nbsp;</small>
+        <span>Owner :</span> <small><?php echo $ownerName; ?> &nbsp;</small>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
           </svg>

@@ -148,7 +148,7 @@ if (isset($_GET['id'])) {
 
       <div class="mb-3">
         <label for="howToGetIn" class="form-label">How to Get In:</label>
-        <textarea id="howToGetIn" name="howToGetIn"  class="form-control1" required>{<?php echo $howToGetIn; ?>}</textarea>
+        <textarea id="howToGetIn" name="howToGetIn"  class="form-control1" required><?php echo $howToGetIn; ?></textarea>
       </div>
 
       <div class="mb-3">
