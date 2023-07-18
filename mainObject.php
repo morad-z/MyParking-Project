@@ -69,16 +69,77 @@ if (isset($_POST['delete'])) {
     }
 }
 
+// Handle the rating submission
+if (isset($_POST['rate'])) {
+    $rating = $_POST['rate'];
+
+    // Check if the user has already rated the object
+    $query = "SELECT rating FROM tbl_216_rating1 WHERE object_id = $id AND user_email = '$email'";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        // Update the existing rating for the object by the user
+        $query = "UPDATE tbl_216_rating1 SET rating = $rating WHERE object_id = $id AND user_email = '$email'";
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            // Rating updated successfully
+            echo "Rating updated successfully";
+        } else {
+            echo "Error updating rating: " . mysqli_error($conn);
+        }
+    } else {
+        // Insert a new rating for the object by the user
+        $query = "INSERT INTO tbl_216_rating1 (object_id, rating, user_email) VALUES ($id, $rating, '$email')";
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            // Rating inserted successfully
+            echo "Rating saved successfully";
+        } else {
+            echo "Error inserting rating: " . mysqli_error($conn);
+        }
+    }
+}
+
+// Retrieve the user's rating for the object, if available
+$query = "SELECT rating FROM tbl_216_rating1 WHERE object_id = $id AND user_email = '$email'";
+$result = mysqli_query($conn, $query);
+
+$userRating = 0; // Default user rating
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $userRating = $row['rating'];
+}
+
+// Retrieve the average rating for the object
+$query = "SELECT AVG(rating) AS averageRating FROM tbl_216_rating1 WHERE object_id = $id";
+$result = mysqli_query($conn, $query);
+
+$averageRating = 0; // Default average rating
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $averageRating = round($row['averageRating'], 2);
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link id="style" rel="stylesheet" href="css/login.css" />
     <link id="style" rel="stylesheet" href="css/all.css" />
+    <link id="style" rel="stylesheet" href="css/rating.css" />
+
+
     <!-- link to boostrap -->
     <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -149,7 +210,21 @@ if (isset($_POST['delete'])) {
           <br>
           <span>AI recommendations :</span><small>must be shelted according to the weather</small>
         </section>
-      </section>
+        <section id="ratingSection">
+        <div class="rating">
+        <input type="radio" id="star5" name="rate" value="5" <?php if ($userRating == 5) echo 'checked'; ?> onclick="submitRating(this)">
+        <label for="star5" title="text"></label>
+        <input type="radio" id="star4" name="rate" value="4" <?php if ($userRating == 4) echo 'checked'; ?> onclick="submitRating(this)">
+        <label for="star4" title="text"></label>
+        <input type="radio" id="star3" name="rate" value="3" <?php if ($userRating == 3) echo 'checked'; ?> onclick="submitRating(this)">
+        <label for="star3" title="text"></label>
+        <input type="radio" id="star2" name="rate" value="2" <?php if ($userRating == 2) echo 'checked'; ?> onclick="submitRating(this)">
+        <label for="star2" title="text"></label>
+        <input type="radio" id="star1" name="rate" value="1" <?php if ($userRating == 1) echo 'checked'; ?> onclick="submitRating(this)">
+        <label for="star1" title="text"></label>
+    </div> 
+    <p>Average Rating: <?php echo $averageRating; ?>
+        </section>
     </main>
 <section id="lowwerSection">
     <?php
